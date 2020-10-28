@@ -1,12 +1,259 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My App</title>
-</head>
-<body>
-    This is my app, Dude.
-    APP_STATUS = BETA
-</body>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+<style>
+    body{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-image: linear-gradient(to right, violet, rgb(127, 215, 245));
+    }
+    .center {
+
+
+
+
+
+ 
+
+box-shadow:10px 10px 10px grey;
+border: 2px solid lightgray;
+background-color: white;
+
+padding: 10px;
+
+
+}
+
+
+    .bs{
+        
+        font-family: Arial;
+        font-size: 14px;
+        font-weight: bold;
+        color: white;
+        background-color: #1a73e8;
+        padding: 10px 16px;
+        border: none;
+        border-radius: 4px;
+        position: relative;
+        left: 50%;        
+        
+        transform: translate(-50%) ;
+    }
+    
+
+    .footer-button{
+        font-family: Arial;
+        font-size: 14px;
+        font-weight: bold;
+        color: white;
+        padding: 10px 16px;
+        border: none;
+        border-radius: 4px;
+        position: relative;
+         
+    }
+
+    .close{
+        float: right;
+        position: relative;
+        font-size: 28px;
+        font-family: Arial;
+        right: 10px;
+        font-weight:bolder;
+        color: white;
+        cursor: pointer;
+        
+    }
+    .close:hover,
+    .close:focus{
+        color:black;
+    }
+    
+
+    input[type=text]{
+font-family: Arial;
+padding: 10px 16px;
+border-radius: 4px;
+width: 200px;
+border: 1px solid lightgray;
+font-size: 16px;
+outline:none;
+
+
+    }
+
+    input[type=text]:focus{
+        border:3px solid #1a73e8;
+        
+    }
+
+    p{
+        font-family: Arial;
+        padding-left: 10px;
+    }
+
+
+
+    .modal{
+        position: absolute;
+        display: none;
+        width: 50%;
+        height: 70%;
+        max-width: 100%;
+        background-color: white;
+        box-shadow: 10px 30px 10px gray;
+        padding: 0;
+    }
+    @media only screen and (max-width: 600px) {
+        .modal{
+            width: 80%;
+            
+        }
+    }
+    .modal-header{
+        position: relative;
+        width: 100%;
+        height: 15%;
+        padding-top: 0px;
+        border-top: solid #5cb85c;
+        
+        background-color: #5cb85c;
+    }
+    .modal-content{
+        width: 100%;
+        height: 70%;
+        background-color: white;
+        
+    }
+    .modal-footer{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 15%;
+        border-top: 1px solid lightgray;
+        background-color: white;
+        
+        
+    }
+
+</style>
+
+    </head>
+    <body>
+        
+        <div class="center">
+            <p style="text-align: center;font-family: Arial; font-weight: bold;font-size: 24px;">PRESENSI NR</p>
+            <label for="namebar" style="font-family: Arial;">Name :</label>
+        <input type="text" name="namebar" id="nb1"><br><br>
+        <button class="bs" onclick="onSubmitClicked()" id="confirmbtn">Submit</button>
+        
+        </div>
+
+        <div class="modal" id="modalbox">
+            <div class="modal-header">
+                <span id="close" class="close" onclick="closeIt()">&times;</span>
+            <span style="font-size: 28px;font-weight: bold;padding-left:10px;top: 10px;color: white;position: relative;font-family: Arial;">Konfirmasi</span>
+            </div>
+            <div class="modal-content">
+                <p><b>Nama</b> : <span id="spanname">Ali Syauqie</span></p>
+                <p><b>Tanggal</b> : <span id="spandate">Rabu, 08 September 2020</span></p>
+                <br>
+                <p>Jika tanggal salah Refresh</p>
+                
+            </div>
+            <div class="modal-footer" id="modalFooter">
+            <a id="formLink" href=""><button class="footer-button" aria  style="background-color: yellowgreen;" id="okbtn">OK</button></a>
+            <button id="refresh" class="footer-button" style="margin-left: 5px;background-color: rgb(236, 52, 52);" onclick="window.location.href=window.location.href" >Refresh</button>
+            </div>
+            
+        </div>
+
+        <script>
+            var x = new Date();
+
+            var weekdays = new Array(7)
+            weekdays[0] = "Minggu"
+            weekdays[1] ="Senin"
+            weekdays[2] = "Selasa"
+            weekdays[3] = "Rabu"
+            weekdays[4] ="Kamis"
+            weekdays[5] ="Jumat"
+            weekdays[6] ="Sabtu"
+
+            var monthInYear = new Array(12)
+            monthInYear[0] = "Januari"
+            monthInYear[1] = "Februari"
+            monthInYear[2] = "Maret"
+            monthInYear[3] = "April"
+            monthInYear[4] = "Mei"
+            monthInYear[5] ="Juni"
+            monthInYear[6] ="Juli"
+            monthInYear[7] ="Agustus"
+            monthInYear[8] ="September"
+            monthInYear[9]="Oktober"
+            monthInYear[10]="November"
+            monthInYear[11] ="Desember"
+
+            var date=weekdays[x.getDay()] + ", " + x.getDate() + " " +  monthInYear[x.getMonth()] + " " +  x.getFullYear()
+            if(x.getDate()<10){
+                date=weekdays[x.getDay()] + ", " + 0+x.getDate() + " " +  monthInYear[x.getMonth()] + " " +  x.getFullYear()
+            }
+            
+            
+            if(localStorage.getItem("nr_student_name")!==null){
+                
+                document.getElementById("nb1").value = localStorage.getItem("nr_student_name")
+            }
+
+            var namebar = document.getElementById("nb1")
+            namebar.focus()
+            namebar.addEventListener("keyup",function(event){
+                if(event.keyCode==13){
+                    document.getElementById("confirmbtn").click()
+                }
+            })
+
+            
+
+            
+
+            console.log(navigator.platform)
+
+            document.getElementById("formLink").href="https://docs.google.com/forms/u/0/d/e/1FAIpQLSfT9Jzae5uqb9htzdt0RC4PT8U3rzoUSo8z5VQ-gjiSGy5rRQ/formResponse?pageHistory=0,1,3,6&entry.1093738387=Bersedia&entry.806368333="+date+"&entry.460380915=X IPA 2&entry.1826136392="+localStorage.getItem("nr_student_name")+"&entry.1509990884=Hadir"
+
+            function onSubmitClicked(){ 
+                document.getElementById("spandate").innerHTML=weekdays[x.getDay()] + ", " + x.getDate() + " " +  monthInYear[x.getMonth()] + " " +  x.getFullYear()
+                
+                   
+                
+                    var nameBarContent = document.getElementById("nb1").value.toString().split(" ")
+                var finalResult=""
+                for(var i =0; i<nameBarContent.length;i++){
+                    var firstCharacter = nameBarContent[i].substring(0,1).toUpperCase()
+                    var postFirstCharacter = nameBarContent[i].substring(1,nameBarContent[i].length).toLowerCase()
+                   
+                    finalResult += firstCharacter+postFirstCharacter+" "
+                }
+                
+                
+                localStorage.setItem("nr_student_name",finalResult.trim())
+                console.log(localStorage.getItem("nr_student_name"))
+                document.getElementById("spanname").innerHTML=localStorage.getItem("nr_student_name")
+                
+                
+                document.getElementById("modalbox").style.display="block"
+                document.getElementById("modalFooter").focus()
+                document.getElementById("formLink").href="https://docs.google.com/forms/u/0/d/e/1FAIpQLSfT9Jzae5uqb9htzdt0RC4PT8U3rzoUSo8z5VQ-gjiSGy5rRQ/formResponse?pageHistory=0,1,3,6&entry.1093738387=Bersedia&entry.806368333="+date+"&entry.460380915=X IPA 2&entry.1826136392="+localStorage.getItem("nr_student_name")+"&entry.1509990884=Hadir"
+                
+            }
+            function closeIt(){
+                document.getElementById("modalbox").style.display="none"
+                document.getElementById("nb1").value=localStorage.getItem("nr_student_name")
+            }     
+        </script>
+    </body>
 </html>
